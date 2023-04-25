@@ -1,7 +1,9 @@
 package com.learning.beerinventoryservice.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -21,6 +23,8 @@ public class BeerInventory extends BaseEntity {
         this.quantityOnHand = quantityOnHand;
     }
 
+    @Type(type = "uuid-char")
+    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
     private UUID beerId;
     private String upc;
     private Integer quantityOnHand = 0;

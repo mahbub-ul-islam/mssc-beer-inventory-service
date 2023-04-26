@@ -14,20 +14,20 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
+@RestController
 public class BeerInventoryController {
 
-    private final BeerInventoryRepository repository;
-    private BeerInventoryMapper mapper;
+    private final BeerInventoryRepository beerInventoryRepository;
+    private final BeerInventoryMapper beerInventoryMapper;
 
     @GetMapping("api/v1/beer/{beerId}/inventory")
-    public List<BeerInventoryDto> listBeersById(@PathVariable UUID beerId) {
+    List<BeerInventoryDto> listBeersById(@PathVariable UUID beerId){
         log.debug("Finding Inventory for beerId:" + beerId);
 
-        return repository.findAllByBeerId(beerId)
+        return beerInventoryRepository.findAllByBeerId(beerId)
                 .stream()
-                .map(mapper::beerInventoryToBeerInventoryDto)
+                .map(beerInventoryMapper::beerInventoryToBeerInventoryDto)
                 .collect(Collectors.toList());
     }
 }
